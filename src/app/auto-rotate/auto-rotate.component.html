@@ -1,5 +1,5 @@
 <div class="file-upload-container">
-  <input type="file" #file (change)="fileChangeHandler()">
+  <input type="file" name="fileInput" #file (change)="fileChangeHandler()">
 </div>
 
 <div class="error" *ngIf="error">
@@ -8,5 +8,5 @@
 
 <div class="success" *ngIf="res">
   <h3>Orientation: {{ res.transform }}</h3>
-  <img [ngStyle]="{'transform': res.transform }" width="150px" [src]="res.img" alt="">
+  <img [ngStyle]="{'transform': res.transform }" width="350px" [src]="res.img" alt="">
 </div>
