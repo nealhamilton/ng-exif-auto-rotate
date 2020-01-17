@@ -3,10 +3,12 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ExifViewerComponent } from './exif-viewer/exif-viewer.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ExifViewerComponent
   ],
   imports: [
     BrowserModule,
