@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ExifViewerComponent } from './exif-viewer.component';
+import { AutoRotateComponent } from './auto-rotate.component';
 
-describe('ExifViewerComponent', () => {
-  let component: ExifViewerComponent;
-  let fixture: ComponentFixture<ExifViewerComponent>;
+describe('AutoRotateComponent', () => {
+  let component: AutoRotateComponent;
+  let fixture: ComponentFixture<AutoRotateComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ExifViewerComponent ]
+      declarations: [ AutoRotateComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ExifViewerComponent);
+    fixture = TestBed.createComponent(AutoRotateComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

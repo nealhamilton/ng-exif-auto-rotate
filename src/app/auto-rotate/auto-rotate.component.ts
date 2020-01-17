@@ -2,17 +2,19 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ExifService } from '../exif.service';
 
 @Component({
-  selector: 'app-exif-viewer',
-  templateUrl: './exif-viewer.component.html',
-  styleUrls: ['./exif-viewer.component.scss']
+  selector: 'app-auto-rotate',
+  templateUrl: './auto-rotate.component.html',
+  styleUrls: ['./auto-rotate.component.scss']
 })
-export class ExifViewerComponent implements OnInit {
+
+export class AutoRotateComponent implements OnInit {
   @ViewChild('file', {
     static: false,
     read: false
   }) file;
 
   res: any;
+  error: string;
 
   constructor(
     private exif: ExifService
@@ -22,13 +24,15 @@ export class ExifViewerComponent implements OnInit {
   }
 
   fileChangeHandler() {
+    this.error = null;
+
     const fileList: FileList = this.file.nativeElement.files;
 
     if (fileList.length) {
       this.exif.getExif(fileList.item(0)).then(res => {
         this.res = res;
       }, err => {
-        console.log(err);
+        this.error = err;
       });
     }
   }

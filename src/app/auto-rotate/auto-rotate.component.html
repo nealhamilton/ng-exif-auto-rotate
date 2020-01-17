@@ -2,7 +2,11 @@
   <input type="file" #file (change)="fileChangeHandler()">
 </div>
 
-<ng-container *ngIf="res">
+<div class="error" *ngIf="error">
+  {{ error }}
+</div>
+
+<div class="success" *ngIf="res">
   <h3>Orientation: {{ res.transform }}</h3>
   <img [ngStyle]="{'transform': res.transform }" width="150px" [src]="res.img" alt="">
-</ng-container>
+</div>

@@ -25,14 +25,10 @@ export class ExifService {
   }
 
   getExif(f: File): Promise<any> {
-    const base64 = `data:${f.type};base64,${this.arrayBufferToBase64(f)}`;
-
     const p = new Promise((resolve, reject) => {
 
       if (!f) {
         reject('No file provided');
-      } else if (!f.type.includes('jpeg')) {
-        reject('File must be jpeg.');
       } else {
 
         const fileReader = new FileReader();
@@ -43,6 +39,11 @@ export class ExifService {
 
           let idx = 0;
           let value = 1; // Non-rotated is the default
+
+          if ((fileReader.result as any).length < 2 || scanner.getUint16(idx) !== 0xFFD8) {
+            // Not a JPEG
+            reject('File must be a jpeg!');
+          }
 
           if ((fileReader.result as any).length < 2 || scanner.getUint16(idx) !== 0xFFD8) {
             // Not a JPEG
@@ -57,8 +58,6 @@ export class ExifService {
             const uint16 = scanner.getUint16(idx);
             idx += 2;
 
-            console.log('Reading... @:', idx, ':', scanner.getUint16(idx + 6, false));
-
             switch (uint16) {
 
               case 0xFFE1: // Start of EXIF
@@ -72,9 +71,8 @@ export class ExifService {
                 // See page 102 at the following URL
                 // http://www.kodak.com/global/plugins/acrobat/en/service/digCam/exifStandard2.pdf
                 value = scanner.getUint16(idx + 6, false);
-                // maxBytes = 0; // Stop scanning
-
-                console.log('Exif value', value);
+                maxBytes = 0; // Stop scanning
+                console.log('Exif value found, stopping scan:', value);
                 break;
             }
           }
